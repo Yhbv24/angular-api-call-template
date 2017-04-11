@@ -33,7 +33,7 @@
 npm-debug.log
 testem.log
 /typings
-/src/api-key.ts
+/src/app/api-key.ts
 
 # e2e
 /e2e/*.js
