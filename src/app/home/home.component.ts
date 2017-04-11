@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   private d3: D3;
   private parentNativeElement: any;
-  energyUsage: any = [];
+  population: any = [];
 
   constructor(element: ElementRef, d3Service: D3Service, private apiService: ApiService) {
     this.d3 = d3Service.getD3();
@@ -27,9 +27,12 @@ export class HomeComponent implements OnInit {
       d3ParentElement = d3.select(this.parentNativeElement);
     }
 
-    this.energyUsage = this.apiService.getDataFromApi();
+    this.apiService.getDataFromApi().subscribe((data) =>
+    this.population = data);
+  }
 
-    console.log(this.energyUsage);
+  showData() {
+    console.log(this.population);
   }
 
 }
