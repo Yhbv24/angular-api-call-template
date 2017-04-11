@@ -1,24 +1,8 @@
 <div class="container">
   <div class="jumbotron">
     <h1>D3 Tester</h1>
+    <button type="button" class="btn btn-sm" (click)="showData()">Show Data</button>
   </div>
   <div class="show-data">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Country</th>
-          <th>No.Females</th>
-          <th>No. Males</th>
-          <th>Population</th>
-        </tr>
-      <tbody>
-        <tr *ngFor="let person of population">
-          <td>{{person.country}}</td>
-          <td>{{person.females}}</td>
-          <td>{{person.males}}</td>
-          <td>{{person.total}}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </div>
