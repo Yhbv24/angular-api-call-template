@@ -23,6 +23,10 @@ export class HomeComponent implements OnInit {
     this.episodes = this.apiService.getEpisodes();
   }
 
+  tester() {
+    // this.apiService.test();
+  }
+
   showSeasons() {
     this.apiService.getSeasons();
   }

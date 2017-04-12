@@ -7,6 +7,8 @@ export class ApiService {
   episodesObjects: any = [];
   seasons: any = [];
   counter: number = 12;
+  season1: any = [];
+  season2: any = [];
 
   constructor(private angularFire: AngularFire) {
     this.episodes = angularFire.database.list('bobross');
@@ -32,8 +34,10 @@ export class ApiService {
           if (episode[key] < 2) {
             if (episode[key]) {
               let number: number = parseInt(episode[key]);
-              season[key] = 0;
-              season[key] += number;
+              if (!season[key]) {
+                season[key] = 0;
+              }
+              season[key] = season[key] + number;
             }
           }
         })
@@ -43,13 +47,7 @@ export class ApiService {
         }
       }
     })
-    console.log(container);
-  }
-
-  tester() {
-    for (let i: number = 0; i < this.episodesObjects.length; i++) {
-      
-    }
+    return container;
   }
 
 }
