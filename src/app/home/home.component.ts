@@ -28,13 +28,19 @@ export class HomeComponent implements OnInit {
     let parentNativeElement: any = this.parentNativeElement;
     let d3ParentElement: Selection<any, any, any, any>;
 
-    if (parentNativeElement !== null) {
+    if (this.parentNativeElement !== null) {
       d3ParentElement = this.d3.select(this.parentNativeElement);
 
-      let h: number = 600; // height
+      let h: number = 100; // height
       let w: number = 1100; // Width
       let episodes = this.episodes;
       let barPadding: number = 1;
+
+      let hasMountains: any = [];
+
+      for (let i: number = 1; i < this.episodes.length; i++) {
+        hasMountains.push(this.episodes[i].FIELD41 * 20);
+      }
 
       let svg: any = d3.select(".show-data")
         .append("svg")
@@ -42,22 +48,80 @@ export class HomeComponent implements OnInit {
         .attr("height", h);
 
       svg.selectAll("rect")
-        .data(episodes)
+        .data(hasMountains)
         .enter()
         .append("rect")
         .attr("x", function(d:any, i:any) {
-          return i * (w / episodes.length);
+          return i * (w / hasMountains.length);
         })
         .attr("y", function(d:any) {
           return h - (d*4);
         })
-        .attr("width", w / episodes.length - barPadding)
+        .attr("width", w / hasMountains.length - barPadding)
         .attr("height", function(d:any) {
           return d * 4;
         })
         .attr("fill", function(d:any) {
-          return "rgb(0, 0, " + (d * 10) + ")";
+          return "red";
         });
+
+        let hasOcean: any = [];
+
+        for (let i: number = 1; i < this.episodes.length; i++) {
+          hasOcean.push(this.episodes[i].FIELD43 * 20);
+        }
+
+        let svg2: any = d3.select(".show-data-2")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+        svg2.selectAll("rect")
+          .data(hasOcean)
+          .enter()
+          .append("rect")
+          .attr("x", function(d:any, i:any) {
+            return i * (w / hasOcean.length);
+          })
+          .attr("y", function(d:any) {
+            return h - (d*4);
+          })
+          .attr("width", w / hasOcean.length - barPadding)
+          .attr("height", function(d:any) {
+            return d * 4;
+          })
+          .attr("fill", function(d:any) {
+            return "red";
+          });
+
+        let hasTrees: any = [];
+
+        for (let i: number = 1; i < this.episodes.length; i++) {
+          hasTrees.push(this.episodes[i].FIELD62 * 20);
+        }
+
+        let svg3: any = d3.select(".show-data-3")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+        svg3.selectAll("rect")
+          .data(hasTrees)
+          .enter()
+          .append("rect")
+          .attr("x", function(d:any, i:any) {
+            return i * (w / hasTrees.length);
+          })
+          .attr("y", function(d:any) {
+            return h - (d*4);
+          })
+          .attr("width", w / hasTrees.length - barPadding)
+          .attr("height", function(d:any) {
+            return d * 4;
+          })
+          .attr("fill", function(d:any) {
+            return "red";
+          });
     }
   }
 
