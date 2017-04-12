@@ -23,6 +23,10 @@ export class HomeComponent implements OnInit {
     this.episodes = this.apiService.getEpisodes();
   }
 
+  showSeasons() {
+    this.apiService.getSeasons();
+  }
+
   showData() {
     let d3 = this.d3;
     let parentNativeElement: any = this.parentNativeElement;
@@ -62,7 +66,7 @@ export class HomeComponent implements OnInit {
           return d * 4;
         })
         .attr("fill", function(d:any) {
-          return "red";
+          return "grey";
         });
 
         let hasOcean: any = [];
@@ -91,7 +95,7 @@ export class HomeComponent implements OnInit {
             return d * 4;
           })
           .attr("fill", function(d:any) {
-            return "red";
+            return "blue";
           });
 
         let hasTrees: any = [];
@@ -120,7 +124,7 @@ export class HomeComponent implements OnInit {
             return d * 4;
           })
           .attr("fill", function(d:any) {
-            return "red";
+            return "green";
           });
     }
   }

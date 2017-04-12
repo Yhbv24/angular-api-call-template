@@ -5,6 +5,8 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 export class ApiService {
   episodes: FirebaseListObservable<any[]>;
   episodesObjects: any = [];
+  seasons: any = [];
+  counter: number = 12;
 
   constructor(private angularFire: AngularFire) {
     this.episodes = angularFire.database.list('bobross');
@@ -17,6 +19,37 @@ export class ApiService {
       }
     })
     return this.episodesObjects;
+  }
+
+  getSeasons() {
+    let season = {};
+    let container = [];
+
+    this.episodesObjects.forEach(function(episode, i) {
+      if (i > 0) {
+        let keyArray = Object.keys(episode);
+        keyArray.forEach(function(key) {
+          if (episode[key] < 2) {
+            if (episode[key]) {
+              let number: number = parseInt(episode[key]);
+              season[key] = 0;
+              season[key] += number;
+            }
+          }
+        })
+        if (i % 13 === 0) {
+          container.push(season);
+          season = {};
+        }
+      }
+    })
+    console.log(container);
+  }
+
+  tester() {
+    for (let i: number = 0; i < this.episodesObjects.length; i++) {
+      
+    }
   }
 
 }
