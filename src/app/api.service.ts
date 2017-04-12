@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Injectable()
 export class ApiService {
+  episodes: FirebaseListObservable<any[]>;
+  episodesObjects: any = [];
 
-  constructor(private http: Http) { }
+  constructor(private angularFire: AngularFire) {
+    this.episodes = angularFire.database.list('bobross');
+  }
 
-  getDataFromApi() {
-    return this.http.get(`_INSERT_URL_HERE_`).map((res:Response) => res.json());
+  getEpisodes() {
+    this.episodes.subscribe(data => {
+      for (let i: number = 1; i < data.length; i++) {
+        this.episodesObjects.push(data[i]);
+      }
+    })
+    return this.episodesObjects;
   }
 
 }
