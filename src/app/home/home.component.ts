@@ -10,6 +10,7 @@ import { ApiService } from '../api.service';
 })
 export class HomeComponent implements OnInit {
   episodes: any = [];
+  seasons: any = [];
 
   private d3: D3;
   private parentNativeElement: any;
@@ -23,18 +24,20 @@ export class HomeComponent implements OnInit {
     this.episodes = this.apiService.getEpisodes();
   }
 
-  tester() {
-    // this.apiService.test();
-  }
-
   showSeasons() {
-    this.apiService.getSeasons();
+    let seasons = this.seasons;
+    var seasonData = this.apiService.getSeasons();
+    seasonData.forEach(function(season) {
+      seasons.push(season);
+    })
+    console.log(seasons);
   }
 
   showData() {
     let d3 = this.d3;
     let parentNativeElement: any = this.parentNativeElement;
     let d3ParentElement: Selection<any, any, any, any>;
+    let seasons = this.seasons;
 
     if (this.parentNativeElement !== null) {
       d3ParentElement = this.d3.select(this.parentNativeElement);
@@ -56,16 +59,16 @@ export class HomeComponent implements OnInit {
         .attr("height", h);
 
       svg.selectAll("rect")
-        .data(hasMountains)
+        .data(seasons)
         .enter()
         .append("rect")
         .attr("x", function(d:any, i:any) {
-          return i * (w / hasMountains.length);
+          return i * (w / seasons.length);
         })
         .attr("y", function(d:any) {
           return h - (d*4);
         })
-        .attr("width", w / hasMountains.length - barPadding)
+        .attr("width", w / seasons.length - barPadding)
         .attr("height", function(d:any) {
           return d * 4;
         })

@@ -5,13 +5,11 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 export class ApiService {
   episodes: FirebaseListObservable<any[]>;
   episodesObjects: any = [];
-  seasons: any = [];
-  counter: number = 12;
-  season1: any = [];
-  season2: any = [];
+  seasons: FirebaseListObservable<any[]>;
 
   constructor(private angularFire: AngularFire) {
     this.episodes = angularFire.database.list('bobross');
+    this.seasons = angularFire.database.list('seasons');
   }
 
   getEpisodes() {
@@ -26,6 +24,7 @@ export class ApiService {
   getSeasons() {
     let season = {};
     let container = [];
+    let seasons = this.seasons;
 
     this.episodesObjects.forEach(function(episode, i) {
       if (i > 0) {
@@ -42,6 +41,7 @@ export class ApiService {
           }
         })
         if (i % 13 === 0) {
+          seasons.push(season);
           container.push(season);
           season = {};
         }
